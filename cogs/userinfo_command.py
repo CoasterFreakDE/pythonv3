@@ -19,7 +19,9 @@ class UserInfoCommand(commands.Cog):
 		                                                                             style=discord.TimestampStyle.relative))
 		embed.add_field(name='Joined Server', value=discord.utils.styled_timestamp(user.joined_at,
 		                                                                           style=discord.TimestampStyle.relative))
-		embed.add_field(name='Roles', value=' '.join([role.mention for role in user.roles]))
+		roles = [role.mention for role in user.roles if role != user.guild.default_role]
+		roles_string = ', '.join(roles) if roles else 'None'
+		embed.add_field(name='Roles', value=roles_string)
 		embed.add_field(name='Top Role', value=user.top_role.mention)
 		embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar_url)
 
