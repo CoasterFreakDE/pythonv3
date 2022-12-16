@@ -4,15 +4,25 @@ from discord.ext import commands
 
 class Welcomer(commands.Cog):
 
-	@commands.Cog.listener()
-	async def on_member_join(self, member):
-		channel = member.guild.get_channel(658960248345853955)
+    def __init__(self, bot):
+        self.bot = bot
 
-		embed = discord.Embed(title='Willkommen auf unserem Server!',
-		                      description=f'Willkommen, {member.mention}! Wir hoffen, du hast Spaß auf unserem Server!\n\n'
-		                                  f'Du bist der {len(member.guild.members)}. Nutzer auf unserem Server!',
-		                      color=0x00ff00)
-		await channel.send(embed=embed)
+
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        channel = self.bot.get_channel(658960248345853955)
+
+        embed = discord.Embed(title='Willkommen auf unserem Server!',
+                              description=f'Willkommen {member.mention} auf unserem Server! Wir hoffen du hast Spaß hier!\n\n'
+                                          f'Du bist der {len(member.guild.members)}. User auf unserem Server!',
+                              color=discord.Color.green())
+
+        embed.set_thumbnail(url=member.avatar_url)
+        embed.set_footer(text=f'User ID: {member.id}')
+
+        await channel.send(embed=embed)
+
+
 
 def setup(bot):
-	bot.add_cog(Welcomer(bot))
+    bot.add_cog(Welcomer(bot))
