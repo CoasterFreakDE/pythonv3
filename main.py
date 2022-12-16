@@ -11,9 +11,12 @@ load_dotenv()
 
 log = logging.getLogger('BOT-MAIN')
 
+intents = discord.Intents.default()
+intents.members = True
+
 bot = commands.Bot(
-	command_prefix=None,
-	intents=discord.Intents.default(),
+	command_prefix=commands.when_mentioned_or(),
+	intents=intents,
 	activity=discord.Activity(type=discord.ActivityType.playing, name='Hello World!'),
 	status=discord.Status.online,
 	sync_commands=True,
