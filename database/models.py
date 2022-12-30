@@ -41,3 +41,6 @@ class LevelUser:
 
 	def get_level(self):
 		return int(self.xp ** 0.3)
+
+	def get_xp_for_next_level(self):
+		return int((self.get_level() + 1) ** 3.33)
